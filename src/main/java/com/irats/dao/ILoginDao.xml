@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.irats.dao.ILoginDao">
+	<select id="selectUser" resultType="User">
+		select id,username,password,power from gduser where username=#{username}
+	</select>
+	
+	
+	<select id="selectUserByName" resultType="User">
+		select id,username,password,power from gduser where username=#{xxx}
+	</select>
+	
+	<insert id="addUser">
+		<selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into gduser(username,password,power) values(#{username},#{password},#{power}) 
+	</insert>
+	
+	<select id="selectAll" resultType="User">
+		select * from gduser where 1=1
+		<if test="username != null and username != '' ">
+			and username=#{username}
+		</if>
+		
+		
+	</select>
+	
+	<delete id="deleteUser">
+		delete from gduser where username=#{xxx}
+	</delete>
+	
+	<update id="updateUser">
+		update gduser set power=#{power} where username=#{username}
+	</update>
+	
+	<update id="updateUsernameById">
+		update gduser set username=#{username} where id=#{id}
+	</update>
+
+	<update id="updateUserPassword">
+		update gduser set password=#{password} where
+		username=#{username}
+	</update>	
+
+	
+	
+</mapper>
